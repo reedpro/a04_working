@@ -161,7 +161,7 @@ namespace ShopSite
                         {
                             string content;
                             string Method = "get";
-                            string uri = "http://localhost:" + port + "/RestService/" + getString; 
+                            string uri = "http://localhost:" + port + "/Customer/" + getString; 
 
                             HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
                             req.KeepAlive = false;

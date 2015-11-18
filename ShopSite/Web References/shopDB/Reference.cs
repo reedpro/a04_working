@@ -34,17 +34,7 @@ namespace ShopSite.shopDB {
         
         private bool useDefaultCredentialsSetExplicitly;
         
-        /// <remarks/>
-        public shoppService() {
-            this.Url = global::ShopSite.Properties.Settings.Default.ShopSite_shopDB_shoppService;
-            if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
-                this.UseDefaultCredentials = true;
-                this.useDefaultCredentialsSetExplicitly = false;
-            }
-            else {
-                this.useDefaultCredentialsSetExplicitly = true;
-            }
-        }
+        
         
         public new string Url {
             get {

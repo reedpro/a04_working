@@ -1,0 +1,2 @@
+[11/17/2015 10:31:49 PM] Error: customer ID must be numeric, and not blank Input: 1001
+[11/17/2015 10:31:59 PM] Error: customer ID must be numeric, and not blank Input: 1001

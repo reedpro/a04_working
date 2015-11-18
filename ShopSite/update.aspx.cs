@@ -135,7 +135,7 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "firstName " + firstNameTxt.Text;
+                        getString += " firstName " + firstNameTxt.Text;
                     }
                     else if (Regex.IsMatch(firstNameTxt.Text, @"\d"))
                     {
@@ -149,7 +149,7 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "lastName " + lastNameTxt.Text;
+                        getString += " lastName " + lastNameTxt.Text;
                     }
                     else if (Regex.IsMatch(lastNameTxt.Text, @"\d"))
                     {
@@ -163,7 +163,7 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "phoneNumber " + phoneTxt.Text;
+                        getString += " phoneNumber " + phoneTxt.Text;
                     }
                     else if (!phoneNumber.IsMatch(phoneTxt.Text) && phoneTxt.Text != "")
                     {
@@ -180,14 +180,14 @@ namespace ShopSite
                         try
                         {
                             string content;
-                            string Method = "post";
-                            string uri = "http://localhost:" + port + "/Customer/" + firstNameTxt.Text + " " + lastNameTxt.Text + " " + phoneTxt.Text; ;
-
+                            string Method = "put";
+                            string uri = "http://localhost:" + port + "/Customer/" + getString;
+                            
                             HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
                             req.KeepAlive = false;
                             req.Method = Method.ToUpper();
 
-                            content = firstNameTxt.Text + " " + lastNameTxt.Text + " " + phoneTxt.Text;
+                            content = getString;
 
                             byte[] buffer = Encoding.ASCII.GetBytes(content);
                             req.ContentLength = buffer.Length;
