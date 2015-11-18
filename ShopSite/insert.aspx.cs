@@ -264,8 +264,44 @@ namespace ShopSite
                     else
                     {
                         //format get  string
-                        string getProdString = "Product" + "/" + "prodName" + ":" + prodNameTxt.Text + "," + "price" + ":" + priceTxt.Text + "," + "prodWeight" + ":" + prodWeightTxt.Text;
-                        errLbl.Text = getProdString;
+                        try
+                        {
+                            string content;
+                            string Method = "post";
+                            string uri = "http://localhost:" + port + "/Product/" + prodNameTxt.Text + " " + priceTxt.Text + " " + prodWeightTxt.Text;
+
+                            HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
+                            req.KeepAlive = false;
+                            req.Method = Method.ToUpper();
+
+                            content = prodNameTxt.Text + " " + priceTxt.Text + " " + prodWeightTxt.Text;
+
+                            byte[] buffer = Encoding.ASCII.GetBytes(content);
+                            req.ContentLength = buffer.Length;
+                            req.ContentType = "text/xml";
+                            Stream PostData = req.GetRequestStream();
+                            PostData.Write(buffer, 0, buffer.Length);
+                            PostData.Close();
+
+
+                            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+                            Encoding enc = System.Text.Encoding.GetEncoding(1252);
+                            StreamReader loResponseStream =
+                            new StreamReader(resp.GetResponseStream(), enc);
+
+                            string Response = loResponseStream.ReadToEnd();
+
+
+                            loResponseStream.Close();
+                            resp.Close();
+                            errLbl.Text = Response.ToString(); //show response
+
+                        }
+                        catch (Exception ex)
+                        {
+                            errLbl.Text = ex.Message.ToString();
+                        }
                     }
                     // errLbl.Text = errString;
                 }
@@ -316,15 +352,52 @@ namespace ShopSite
                     {
                         //format get string
 
-                        string getOrdString = "Order" + "/" + "custID" + ":" + ordCustIDTxt.Text + ",";
+                        string getOrdString = ordCustIDTxt.Text +  " ";
                         //Check to see if
                         if (poNumberTxt.Text != "")
                         {
-                            getOrdString += "poNumber" + ":" + poNumberTxt.Text + ",";
+                            getOrdString +=  poNumberTxt.Text + " ";
                         }
-                        getOrdString += "orderDate" + ":" + orderDateTxt.Text;
-                        errLbl.Text = getOrdString;
+                        getOrdString += orderDateTxt.Text;
 
+                        try
+                        {
+                            string content;
+                            string Method = "post";
+                            string uri = "http://localhost:" + port + "/Product/" + getOrdString;
+
+                            HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
+                            req.KeepAlive = false;
+                            req.Method = Method.ToUpper();
+
+                            content = getOrdString;
+
+                            byte[] buffer = Encoding.ASCII.GetBytes(content);
+                            req.ContentLength = buffer.Length;
+                            req.ContentType = "text/xml";
+                            Stream PostData = req.GetRequestStream();
+                            PostData.Write(buffer, 0, buffer.Length);
+                            PostData.Close();
+
+
+                            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+                            Encoding enc = System.Text.Encoding.GetEncoding(1252);
+                            StreamReader loResponseStream =
+                            new StreamReader(resp.GetResponseStream(), enc);
+
+                            string Response = loResponseStream.ReadToEnd();
+
+
+                            loResponseStream.Close();
+                            resp.Close();
+                            errLbl.Text = Response.ToString(); //show response
+
+                        }
+                        catch (Exception ex)
+                        {
+                            errLbl.Text = ex.Message.ToString();
+                        }
                     }
                     // errLbl.Text = errString;
                 }
@@ -373,8 +446,45 @@ namespace ShopSite
                     {
 
                         //format get sting
-                        string getCartString = "Cart" + "/" + "prodID" + ":" + cartProdIDTxt.Text + "," + "quantity" + ":" + quantityTxt.Text;
-                        errLbl.Text = getCartString;
+                        string getCartString =  cartProdIDTxt.Text + " " + quantityTxt.Text;
+                        try
+                        {
+                            string content;
+                            string Method = "post";
+                            string uri = "http://localhost:" + port + "/Product/" + getCartString;
+
+                            HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
+                            req.KeepAlive = false;
+                            req.Method = Method.ToUpper();
+
+                            content = getCartString;
+
+                            byte[] buffer = Encoding.ASCII.GetBytes(content);
+                            req.ContentLength = buffer.Length;
+                            req.ContentType = "text/xml";
+                            Stream PostData = req.GetRequestStream();
+                            PostData.Write(buffer, 0, buffer.Length);
+                            PostData.Close();
+
+
+                            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+                            Encoding enc = System.Text.Encoding.GetEncoding(1252);
+                            StreamReader loResponseStream =
+                            new StreamReader(resp.GetResponseStream(), enc);
+
+                            string Response = loResponseStream.ReadToEnd();
+
+
+                            loResponseStream.Close();
+                            resp.Close();
+                            errLbl.Text = Response.ToString(); //show response
+
+                        }
+                        catch (Exception ex)
+                        {
+                            errLbl.Text = ex.Message.ToString();
+                        }
                     }
 
                     // errLbl.Text = errString;

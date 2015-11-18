@@ -232,7 +232,7 @@ namespace ShopSite
                     //Error checking, and writing that error to a log
                     if (prodIDTxt.Text != "" && Regex.IsMatch(custIDTxt.Text, @"^[1-9]?$"))
                     {
-                        getString += "prodID:" + prodIDTxt.Text;
+                        getString += "prodID " + prodIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(prodIDTxt.Text, @"^[1-9]?$") || prodIDTxt.Text == "")
                     {
@@ -246,7 +246,7 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "prodName:" + prodNameTxt.Text;
+                        getString += "prodName " + prodNameTxt.Text;
                     }
                     else if (Regex.IsMatch(prodNameTxt.Text, @"\d"))
                     {
@@ -274,14 +274,58 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "prodWeight:" + prodWeightTxt.Text;
+                        getString += "prodWeight " + prodWeightTxt.Text;
                     }
                     else if (!Regex.IsMatch(prodWeightTxt.Text, @"^[1-9]\d*(\.\d+)?$"))
                     {
                         errMsg += "Product weight must be a number. ";
                         WriteLog("Error: " + "Product weight must be a number. " + "Input: " + prodWeightTxt.Text);
                     }
-                    errLbl.Text = errMsg + "\n" + getString;
+                    if (errMsg != "")
+                    {
+                        errLbl.Text = errMsg;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            string content;
+                            string Method = "put";
+                            string uri = "http://localhost:" + port + "/Product/" + getString;
+
+                            HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
+                            req.KeepAlive = false;
+                            req.Method = Method.ToUpper();
+
+                            content = getString;
+
+                            byte[] buffer = Encoding.ASCII.GetBytes(content);
+                            req.ContentLength = buffer.Length;
+                            req.ContentType = "text/xml";
+                            Stream PostData = req.GetRequestStream();
+                            PostData.Write(buffer, 0, buffer.Length);
+                            PostData.Close();
+
+
+                            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+                            Encoding enc = System.Text.Encoding.GetEncoding(1252);
+                            StreamReader loResponseStream =
+                            new StreamReader(resp.GetResponseStream(), enc);
+
+                            string Response = loResponseStream.ReadToEnd();
+
+
+                            loResponseStream.Close();
+                            resp.Close();
+                            errLbl.Text = Response.ToString(); //show response
+
+                        }
+                        catch (Exception ex)
+                        {
+                            errLbl.Text = ex.Message.ToString();
+                        }
+                    }
                 }
             }
             else if (ordSearch)
@@ -298,7 +342,7 @@ namespace ShopSite
                     //Error checking, and writing that error to a log
                     if (orderIDTxt.Text != "" && Regex.IsMatch(orderIDTxt.Text, @"^[1-9]?$"))
                     {
-                        getString += "prodID:" + prodIDTxt.Text;
+                        getString += "prodID " + prodIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(orderIDTxt.Text, @"^[1-9]?$") || orderIDTxt.Text == "")
                     {
@@ -312,7 +356,7 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "custID:" + ordCustIDTxt.Text;
+                        getString += "custID " + ordCustIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(ordCustIDTxt.Text, @"^[1-9]?$"))
                     {
@@ -326,7 +370,7 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "poNumber:" + poNumberTxt.Text;
+                        getString += "poNumber " + poNumberTxt.Text;
                     }
                     //Error checking, and writing that error to a log
                     DateTime temp;
@@ -338,12 +382,58 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "orderDate:" + orderDateTxt.Text;
+                        getString += "orderDate " + orderDateTxt.Text;
                     }
                     else if (!DateTime.TryParseExact(orderDateTxt.Text, format, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.NoCurrentDateDefault, out temp))
                     {
                         errMsg += "date must be in MM-DD-YY format. ";
                         WriteLog("Error: " + "date must be in MM-DD-YY format. " + "Input: " + orderDateTxt.Text);
+                    }
+
+                    if(errMsg != "")
+                    {
+                        errLbl.Text = errMsg;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            string content;
+                            string Method = "put";
+                            string uri = "http://localhost:" + port + "/Order/" + getString;
+
+                            HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
+                            req.KeepAlive = false;
+                            req.Method = Method.ToUpper();
+
+                            content = getString;
+
+                            byte[] buffer = Encoding.ASCII.GetBytes(content);
+                            req.ContentLength = buffer.Length;
+                            req.ContentType = "text/xml";
+                            Stream PostData = req.GetRequestStream();
+                            PostData.Write(buffer, 0, buffer.Length);
+                            PostData.Close();
+
+
+                            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+                            Encoding enc = System.Text.Encoding.GetEncoding(1252);
+                            StreamReader loResponseStream =
+                            new StreamReader(resp.GetResponseStream(), enc);
+
+                            string Response = loResponseStream.ReadToEnd();
+
+
+                            loResponseStream.Close();
+                            resp.Close();
+                            errLbl.Text = Response.ToString(); //show response
+
+                        }
+                        catch (Exception ex)
+                        {
+                            errLbl.Text = ex.Message.ToString();
+                        }
                     }
                 }
             }
@@ -359,7 +449,7 @@ namespace ShopSite
                 {
                     if (cartOrderIDTxt.Text != "" && Regex.IsMatch(cartOrderIDTxt.Text, @"^[1-9]?$"))
                     {
-                        getString += "prodID:" + prodIDTxt.Text;
+                        getString += "prodID " + prodIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(cartOrderIDTxt.Text, @"^[1-9]?$") || cartOrderIDTxt.Text == "")
                     {
@@ -373,7 +463,7 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "prodID:" + cartProdIDTxt.Text;
+                        getString += "prodID " + cartProdIDTxt.Text;
                     }
                     //Error checking, and writing that error to a log
                     else if (!Regex.IsMatch(cartProdIDTxt.Text, @"^[1-9]?$"))
@@ -389,12 +479,58 @@ namespace ShopSite
                         {
                             getString += ",";
                         }
-                        getString += "quantity:" + quantityTxt.Text;
+                        getString += "quantity " + quantityTxt.Text;
                     }
                     else if (!int.TryParse(quantityTxt.Text, out i))
                     {
                         errMsg += "quantity must be numeric. ";
                         WriteLog("Error: " + "quantity must be numeric. " + "Input: " + quantityTxt.Text);
+                    }
+
+                    if(errMsg != "")
+                    {
+                        errLbl.Text = errMsg;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            string content;
+                            string Method = "put";
+                            string uri = "http://localhost:" + port + "/Cart/" + getString;
+
+                            HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
+                            req.KeepAlive = false;
+                            req.Method = Method.ToUpper();
+
+                            content = getString;
+
+                            byte[] buffer = Encoding.ASCII.GetBytes(content);
+                            req.ContentLength = buffer.Length;
+                            req.ContentType = "text/xml";
+                            Stream PostData = req.GetRequestStream();
+                            PostData.Write(buffer, 0, buffer.Length);
+                            PostData.Close();
+
+
+                            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+                            Encoding enc = System.Text.Encoding.GetEncoding(1252);
+                            StreamReader loResponseStream =
+                            new StreamReader(resp.GetResponseStream(), enc);
+
+                            string Response = loResponseStream.ReadToEnd();
+
+
+                            loResponseStream.Close();
+                            resp.Close();
+                            errLbl.Text = Response.ToString(); //show response
+
+                        }
+                        catch (Exception ex)
+                        {
+                            errLbl.Text = ex.Message.ToString();
+                        }
                     }
                 }
             }

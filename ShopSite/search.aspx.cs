@@ -104,7 +104,7 @@ namespace ShopSite
                     //check custID to see if it is valid and non-blank
                     if (custIDTxt.Text != "" && Regex.IsMatch(custIDTxt.Text, @"^[1-9]?$"))
                     {
-                        getString += custIDTxt.Text;
+                        getString += "custID " + custIDTxt.Text;
                     } 
                     else if (!Regex.IsMatch(custIDTxt.Text, @"^[1-9]?$")) //if it is non-blank and invalid add to error string
                     {
@@ -117,7 +117,7 @@ namespace ShopSite
                         {
                             getString += " "; //add comma to "get" string
                         }
-                        getString += firstNameTxt.Text;
+                        getString += "firstName " + firstNameTxt.Text;
                     }
                     else if (Regex.IsMatch(firstNameTxt.Text, @"\d"))
                     {
@@ -130,7 +130,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += lastNameTxt.Text;
+                        getString += "lastName " + lastNameTxt.Text;
                     }
                     else if (Regex.IsMatch(lastNameTxt.Text, @"\d"))
                     {
@@ -143,7 +143,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += phoneTxt.Text;
+                        getString += "phoneNumber " + phoneTxt.Text;
                     }
                     else if (!phoneNumber.IsMatch(phoneTxt.Text) && phoneTxt.Text != "")
                     {
@@ -215,7 +215,7 @@ namespace ShopSite
                     //if product text is nonblank and valid
                     if (prodIDTxt.Text != "" && Regex.IsMatch(custIDTxt.Text, @"^[1-9]?$"))
                     {
-                        getString += prodIDTxt.Text;
+                        getString += "prodID " + prodIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(prodIDTxt.Text, @"^[1-9]?$"))
                     {
@@ -228,7 +228,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += prodNameTxt.Text;
+                        getString += "prodName " + prodNameTxt.Text;
                     }
                     else if (Regex.IsMatch(prodNameTxt.Text, @"\d"))
                     {
@@ -241,7 +241,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += priceTxt.Text;
+                        getString += "price " + priceTxt.Text;
                     }
                     else if (Regex.IsMatch(priceTxt.Text, @"^[1-9]\d*(\.\d+)?$"))
                     {
@@ -254,7 +254,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += prodWeightTxt.Text;
+                        getString += "prodWeight " + prodWeightTxt.Text;
                     }
                     else if (!Regex.IsMatch(prodWeightTxt.Text, @"^[1-9]\d*(\.\d+)?$"))
                     {
@@ -307,7 +307,7 @@ namespace ShopSite
                 {
                     if (orderIDTxt.Text != "" && Regex.IsMatch(orderIDTxt.Text, @"^[1-9]?$"))
                     {
-                        getString += prodIDTxt.Text;
+                        getString += "orderID " + orderIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(orderIDTxt.Text, @"^[1-9]?$"))
                     {
@@ -320,7 +320,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += ordCustIDTxt.Text;
+                        getString += "custID " + ordCustIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(ordCustIDTxt.Text, @"^[1-9]?$"))
                     {
@@ -335,7 +335,7 @@ namespace ShopSite
                         }
                         if (errMsg != "")
                         {
-                            getString += poNumberTxt.Text;
+                            getString += "poNumber " + poNumberTxt.Text;
                         }
                     }
 
@@ -348,7 +348,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += orderDateTxt.Text;
+                        getString += "orderDate " + orderDateTxt.Text;
                     }
                     else if (!DateTime.TryParseExact(orderDateTxt.Text, format, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.NoCurrentDateDefault, out temp))
                     {
@@ -401,7 +401,7 @@ namespace ShopSite
                 {
                     if (cartOrderIDTxt.Text != "" && Regex.IsMatch(cartOrderIDTxt.Text, @"^[1-9]?$"))
                     {
-                        getString += prodIDTxt.Text;
+                        getString += "prodID " + prodIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(cartOrderIDTxt.Text, @"^[1-9]?$"))
                     {
@@ -414,7 +414,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += cartProdIDTxt.Text;
+                        getString += "prodID " + cartProdIDTxt.Text;
                     }
                     else if (!Regex.IsMatch(cartProdIDTxt.Text, @"^[1-9]?$"))
                     {
@@ -427,7 +427,7 @@ namespace ShopSite
                         {
                             getString += " ";
                         }
-                        getString += quantityTxt.Text;
+                        getString += "quantity " + quantityTxt.Text;
                     }
                     else if (!int.TryParse(quantityTxt.Text, out i))
                     {
